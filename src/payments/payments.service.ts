@@ -33,8 +33,8 @@ export class PaymentsService {
       },
       line_items: lineItems,
       mode: 'payment',
-      success_url: `http://localhost:3003/payments/success`,
-      cancel_url: `http://localhost:3003/payments/cancel`,
+      success_url: envs.stripeSuccessUrl,
+      cancel_url: envs.stripeCancelUrl,
     });
 
     return session;
@@ -43,8 +43,7 @@ export class PaymentsService {
   async stripeWebhook(req: Request, res: Response) {
     const sig = req.headers['stripe-signature'];
     let event: Stripe.Event;
-    // test const endpointSecret ='whsec_a6b901845764d737b522ae32f8401120975384e0e53d7a48e384f96421ba0b08';
-    const endpointSecret = 'whsec_lTfc6nXfce07KxLxf9LsHcwEXS0wu9ZK';
+    const endpointSecret = envs.stripeEndpointSecret;
     try {
       event = this.stripe.webhooks.constructEvent(
         req['rawBody'],
@@ -55,7 +54,6 @@ export class PaymentsService {
       res.status(400).send(`Webhook Error: ${error.message}`);
       return;
     }
-
 
     const chargeSucceeded = event.data.object as Stripe.Charge;
     switch (event.type) {
