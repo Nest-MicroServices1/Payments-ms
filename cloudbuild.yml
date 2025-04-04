@@ -4,7 +4,7 @@ steps:
       [
         "build",
         "-t",
-        "northamerica-south1-docker.pkg.dev/microservice-nestjs-455616/image-registry/payment-ms",
+        "northamerica-northeast1-docker.pkg.dev/tienda-microservice-455722/image-registry/payment-ms",
         "-f",
         "dockerfile.prod",
         "--platform=linux/amd64",
@@ -14,7 +14,7 @@ steps:
     args:
       [
         "push",
-        "northamerica-south1-docker.pkg.dev/microservice-nestjs-455616/image-registry/payment-ms",
+        "northamerica-northeast1-docker.pkg.dev/tienda-microservice-455722/image-registry/payment-ms",
       ]
 options:
   logging: CLOUD_LOGGING_ONLY
